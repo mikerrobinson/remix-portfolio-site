@@ -1,7 +1,15 @@
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
-export function Welcome({ message }: { message: string }) {
+export function Welcome({
+  message,
+  title,
+  description,
+}: {
+  message: string;
+  title: string;
+  description: string;
+}) {
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
@@ -41,6 +49,16 @@ export function Welcome({ message }: { message: string }) {
               <li className="self-stretch p-3 bg-white text-red-500 leading-normal">
                 {message}
               </li>
+              <li className="self-stretch p-3 bg-white text-red-500 leading-normal">
+                From Contentful:
+              </li>
+              <li className="self-stretch p-3 bg-white text-gray-700 leading-normal">
+                {title}
+              </li>
+              <li
+                className="self-stretch p-3 bg-white text-gray-700 leading-normal"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </ul>
             <img src="img/photo.jpg" className="rounded-2xl" />
           </nav>
