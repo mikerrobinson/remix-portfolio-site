@@ -38,8 +38,11 @@ export function Welcome({ message }: { message: string }) {
                   </a>
                 </li>
               ))}
-              <li className="self-stretch p-3 leading-normal">{message}</li>
+              <li className="self-stretch p-3 bg-white text-red-500 leading-normal">
+                {message}
+              </li>
             </ul>
+            <img src="img/photo.jpg" className="rounded-2xl" />
           </nav>
         </div>
       </div>
