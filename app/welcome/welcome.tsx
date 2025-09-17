@@ -60,7 +60,7 @@ export function Welcome({
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             </ul>
-            <img src="img/photo.jpg" className="rounded-2xl" />
+            {/* <img src="img/photo.jpg" className="rounded-2xl" /> */}
           </nav>
         </div>
       </div>
