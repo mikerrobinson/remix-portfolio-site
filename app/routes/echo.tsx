@@ -4,7 +4,7 @@ import { getEcho, createEcho } from "~/utils/echo.server"; // Import server logi
 
 // Loader for GET requests
 export async function loader({ request }: LoaderFunctionArgs) {
-  if (request.url.includes("showform")) {
+  if (request.headers.get("x-debug")) {
     return null;
   }
   const echo = await getEcho(request);
