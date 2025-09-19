@@ -34,7 +34,9 @@ export function Education({
           </>
         )}
       </dl>
-      <img className="logo" src={logo?.url} alt={logo?.altText}></img>
+      {logo?.url && (
+        <img className="logo" src={logo?.url} alt={logo?.altText} />
+      )}
     </div>
   );
 }
