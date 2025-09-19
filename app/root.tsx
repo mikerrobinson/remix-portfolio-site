@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { GoogleAnalytics } from "./components/google-analytics";
 
 export const links: Route.LinksFunction = () => [
   // { rel: "preconnect", href: "https://images.ctfassets.net" },
@@ -27,6 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="preconnect" href="https://images.ctfassets.net"></link>
         <Meta />
         <Links />
+        <GoogleAnalytics />
       </head>
       <body>
         {children}
