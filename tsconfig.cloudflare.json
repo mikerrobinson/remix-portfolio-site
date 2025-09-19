@@ -6,7 +6,10 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "workers/**/*",
-    "worker-configuration.d.ts"
+    "worker-configuration.d.ts",
+    "lib/contentful/**/*",
+    "scripts",
+    "public/routes.ts"
   ],
   "compilerOptions": {
     "composite": true,

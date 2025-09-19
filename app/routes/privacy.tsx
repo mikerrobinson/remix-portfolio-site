@@ -1,7 +1,8 @@
 import type { Route } from "./+types/privacy";
 import { createClient } from "contentful";
-import type { ContentBlockSkeleton } from "../contentful/types/ContentBlockSkeleton";
+//import type { ContentBlockSkeleton } from "../contentful/types/ContentBlockSkeleton";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { ContentBlock } from "../../lib/contentful/generated/content_block";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,9 +20,7 @@ export async function loader({ context }: Route.LoaderArgs) {
     space: context.cloudflare.env.CONTENTFUL_SPACE_ID,
     accessToken: context.cloudflare.env.CONTENTFUL_ACCESS_TOKEN, // or process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN for drafts
   });
-  const entry = await client.getEntry<ContentBlockSkeleton>(
-    "d2PqGLeIaxJ5tzVERTml6",
-  );
+  const entry = await client.getEntry<ContentBlock>("d2PqGLeIaxJ5tzVERTml6");
   return {
     heading: entry.fields.heading,
     body: documentToHtmlString(entry.fields.body),
