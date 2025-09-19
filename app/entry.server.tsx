@@ -40,8 +40,15 @@ export default async function handleRequest(
   // Security headers per best practices
   responseHeaders.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' static.cloudflareinsights.com www.googletagmanager.com/gtag/js 'unsafe-inline'; style-src 'self'; img-src 'self' images.ctfassets.net;"
+    `
+    default-src 'self'; 
+    script-src 'self' 'unsafe-inline' static.cloudflareinsights.com www.googletagmanager.com/gtag/js; 
+    connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; 
+    style-src 'self'; 
+    img-src 'self' images.ctfassets.net https://www.google-analytics.com https://*.google-analytics.com;
+    `
   );
+
   responseHeaders.set(
     "Strict-Transport-Security",
     "max-age=63072000; includeSubDomains; preload"
