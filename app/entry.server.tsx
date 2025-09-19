@@ -36,6 +36,19 @@ export default async function handleRequest(
   }
 
   responseHeaders.set("Content-Type", "text/html");
+
+  // Security headers per best practices
+  responseHeaders.set(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' images.ctfassets.net;"
+  );
+  responseHeaders.set(
+    "Strict-Transport-Security",
+    "max-age=63072000; includeSubDomains; preload"
+  );
+  responseHeaders.set("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  responseHeaders.set("X-Frame-Options", "SAMEORIGIN");
+
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,

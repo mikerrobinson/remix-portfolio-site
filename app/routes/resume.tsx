@@ -5,6 +5,17 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { Resume } from "lib/contentful/generated";
 import { Education } from "~/components/education";
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Mike Robinson - Resume" },
+    {
+      name: "description",
+      content:
+        "The resume of Mike Robinson, a software developer manager specializing in web and mobile applications.",
+    },
+  ];
+}
+
 // Loader for GET requests
 export async function loader({ request, context }: Route.LoaderArgs) {
   const client = createClient({
@@ -29,7 +40,10 @@ export async function loader({ request, context }: Route.LoaderArgs) {
       title: experience.fields.title,
       company: {
         name: experience.fields.company.fields.name,
-        logoUrl: experience.fields.company.fields.logo?.fields.file?.url,
+        logo: {
+          url: experience.fields.company.fields.logo?.fields.file?.url,
+          altText: experience.fields.company.fields.logo?.fields.description,
+        },
       },
       startDate: experience.fields.startDate,
       endDate: experience.fields.endDate,
@@ -40,7 +54,10 @@ export async function loader({ request, context }: Route.LoaderArgs) {
       major: education.fields.major,
       minor: education.fields.minor,
       societies: education.fields.societies,
-      logoUrl: education.fields.logo?.file.url,
+      logo: {
+        url: education.fields.logo?.fields.file?.url,
+        altText: education.fields.logo?.fields.description,
+      },
     })),
   };
 }
@@ -79,7 +96,8 @@ export default function ResumePage() {
               </p>
               <img
                 className="max-w-20 h-auto inline-block mr-2 mb-2"
-                src={experience.company.logoUrl}
+                src={experience.company.logo.url}
+                alt={experience.company.logo.altText}
               ></img>
               <p
                 dangerouslySetInnerHTML={{

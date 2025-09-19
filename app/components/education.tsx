@@ -2,13 +2,13 @@ export function Education({
   school,
   major,
   minor,
-  logoUrl,
+  logo,
   societies,
 }: {
   school: string;
   major?: string;
   minor?: string;
-  logoUrl?: string;
+  logo?: { url: string; altText?: string };
   societies?: string;
 }) {
   return (
@@ -34,7 +34,7 @@ export function Education({
           </>
         )}
       </dl>
-      <img className="logo" src={logoUrl}></img>
+      <img className="logo" src={logo?.url} alt={logo?.altText}></img>
     </div>
   );
 }
