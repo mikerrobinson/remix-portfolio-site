@@ -40,7 +40,7 @@ export default async function handleRequest(
   // Security headers per best practices
   responseHeaders.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' static.cloudflareinsights.com www.googletagmanager.com/gtag/js; style-src 'self'; img-src 'self' images.ctfassets.net;"
+    "default-src 'self'; script-src 'self' static.cloudflareinsights.com www.googletagmanager.com/gtag/js unsafe-inline; style-src 'self'; img-src 'self' images.ctfassets.net;"
   );
   responseHeaders.set(
     "Strict-Transport-Security",
