@@ -44,7 +44,7 @@ export default async function handleRequest(
     default-src 'self'; \
     script-src 'self' 'unsafe-inline' static.cloudflareinsights.com www.googletagmanager.com/gtag/js; \
     connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; \
-    style-src 'self'; \
+    style-src 'self' 'unsafe-line'; \
     img-src 'self' images.ctfassets.net https://www.google-analytics.com https://*.google-analytics.com; \
     "
   );
