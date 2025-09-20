@@ -4,14 +4,34 @@ import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { Resume } from "lib/contentful/generated";
 import { Education } from "~/components/education";
+import { Experience } from "~/components/experience";
+
+const pageData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://mikerobinson.dev#resume",
+  url: "https://mikerobinson.dev",
+  name: "Mike Robinson – Resume",
+  isPartOf: {
+    "@id": "https://mikerobinson.dev#website",
+  },
+  about: {
+    "@id": "https://mikerobinson.dev#person",
+  },
+  description:
+    "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
+};
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Mike Robinson - Resume" },
+    { title: "Mike Robinson – Resume" },
     {
       name: "description",
       content:
-        "The resume of Mike Robinson, a software developer manager specializing in web and mobile applications.",
+        "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
+    },
+    {
+      "script:ld+json": pageData,
     },
   ];
 }
@@ -69,7 +89,7 @@ export default function ResumePage() {
   return (
     <>
       <h1>
-        {name && <div class="name">{name}</div>}
+        {name && <div className="name text-2xl">{name}</div>}
         {headline && <div className="headline">{headline}</div>}
       </h1>
       {summaryHtml && (
@@ -86,25 +106,14 @@ export default function ResumePage() {
         <section id="experience">
           <h2>Experience</h2>
           {experience?.map((experience) => (
-            <div className="experience" key={experience.title}>
-              <h3>
-                <div>{experience.title}</div>
-                <div>{experience.company.name}</div>
-              </h3>
-              <p>
-                {experience.startDate} to {experience.endDate}
-              </p>
-              <img
-                className="max-w-20 h-auto inline-block mr-2 mb-2"
-                src={experience.company.logo.url}
-                alt={experience.company.logo.altText}
-              ></img>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: experience.descriptionHtml,
-                }}
-              />
-            </div>
+            <Experience
+              key={experience.title + experience.company.name}
+              title={experience.title}
+              company={experience.company}
+              startDate={experience.startDate}
+              endDate={experience.endDate}
+              descriptionHtml={experience.descriptionHtml}
+            />
           ))}
         </section>
       )}
@@ -117,8 +126,8 @@ export default function ResumePage() {
               school={education.school}
               major={education.major}
               minor={education.minor}
-              societies={education.societies}
-              logoUrl={education.logoUrl}
+              other={education.societies}
+              logo={education.logo}
             />
           ))}
         </section>

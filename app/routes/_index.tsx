@@ -4,10 +4,33 @@ import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { ContentBlock } from "lib/contentful/generated";
 
+const pageData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://mikerobinson.dev#homepage",
+  url: "https://mikerobinson.dev",
+  name: "Mike Robinson – Portfolio & Resume",
+  isPartOf: {
+    "@id": "https://mikerobinson.dev#website",
+  },
+  about: {
+    "@id": "https://mikerobinson.dev#person",
+  },
+  description:
+    "Welcome to the personal website of Mike Robinson – engineering manager, software developer, and technical leader.",
+};
+
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Mike Robinson – Home Page" },
+    {
+      name: "description",
+      content:
+        "Welcome to my little corner on the internet.  This site features some basic information about me, my resume, and links various projects and work.",
+    },
+    {
+      "script:ld+json": pageData,
+    },
   ];
 }
 

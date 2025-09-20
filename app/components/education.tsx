@@ -3,17 +3,20 @@ export function Education({
   major,
   minor,
   logo,
-  societies,
+  other,
 }: {
   school: string;
   major?: string;
   minor?: string;
   logo?: { url: string; altText?: string };
-  societies?: string;
+  other?: string;
 }) {
   return (
     <div className="education">
       <h3 className="school">{school}</h3>
+      {logo?.url && (
+        <img className="logo" src={logo?.url} alt={logo?.altText} />
+      )}
       <dl>
         {major && (
           <>
@@ -27,16 +30,13 @@ export function Education({
             <dd>{minor}</dd>
           </>
         )}
-        {societies && (
+        {other && (
           <>
-            <dt>Activites and Societies</dt>
-            <dd>{societies}</dd>
+            <dt>Additional notes</dt>
+            <dd>{other}</dd>
           </>
         )}
       </dl>
-      {logo?.url && (
-        <img className="logo" src={logo?.url} alt={logo?.altText} />
-      )}
     </div>
   );
 }
