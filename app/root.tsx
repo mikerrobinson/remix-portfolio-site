@@ -3,7 +3,7 @@ import {
   Links,
   Meta,
   Outlet,
-  // Scripts,
+  Scripts,
   // ScrollRestoration,
 } from "react-router";
 
@@ -11,6 +11,9 @@ import type { Route } from "./+types/root";
 import appStylesHref from "./app.css?url";
 import { GoogleAnalytics } from "./components/google-analytics";
 import { JsonLdScript } from "./components/json-ld-script";
+import { Menu, X } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const links: Route.LinksFunction = () => [
   // { rel: "preconnect", href: "https://images.ctfassets.net" },
@@ -85,14 +88,143 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         {/* <ScrollRestoration /> */}
-        {/* <Scripts /> */}
+        <Scripts />
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  return (
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
+      <header className="sticky top-0 z-50 bg-white shadow-md">
+        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+          {/* Left: Logo + Name */}
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://images.ctfassets.net/de578b4i2gcz/40rIUphI1duS6bDBIpOQW1/c576d5678173b5ed556a9bc8208a3860/avatar.png"
+              alt="Mike Robinson avatar"
+              className="w-auto h-20"
+            />
+            <span className="font-semibold text-lg md:text-xl">
+              Mike Robinson
+            </span>
+          </div>
+
+          {/* Right: Navigation */}
+          <nav className="hidden md:flex space-x-6 font-medium">
+            <a href="/" className="hover:text-blue-600 transition-colors">
+              Home
+            </a>
+            <a href="/resume" className="hover:text-blue-600 transition-colors">
+              Resume
+            </a>
+            <a
+              href="/projects"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Projects
+            </a>
+            <a
+              href="/privacy"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Privacy
+            </a>
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 rounded hover:bg-gray-100"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              key="mobile-drawer"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden bg-white border-t border-gray-200 shadow-sm overflow-hidden"
+            >
+              <nav className="flex flex-col px-4 py-3 space-y-3 font-medium">
+                <a
+                  href="/"
+                  className="hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Home
+                </a>
+                <a
+                  href="/resume"
+                  className="hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Resume
+                </a>
+                <a
+                  href="/projects"
+                  className="hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Projects
+                </a>
+                <a
+                  href="/privacy"
+                  className="hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Privacy
+                </a>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+        <Outlet />
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-gray-200 py-6 mt-12">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+          <p className="text-sm">
+            © {new Date().getFullYear()} Michael Robinson
+          </p>
+          <div className="flex space-x-4 mt-3 md:mt-0">
+            <a
+              href="https://www.linkedin.com/in/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
