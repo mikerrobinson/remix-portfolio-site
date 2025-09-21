@@ -4,7 +4,7 @@
  * @param body The parsed request body (if available).
  * @returns A JSON object with the request details.
  */
-function parseRequest(request: Request, body?: any) {
+function parseRequest(request: Request, body?: unknown) {
   const headers = Object.fromEntries(request.headers.entries());
   const url = request.url;
   const method = request.method;
@@ -15,7 +15,7 @@ function parseRequest(request: Request, body?: any) {
     url,
     headers,
     searchParams,
-    body: body || null,
+    body,
   };
 }
 

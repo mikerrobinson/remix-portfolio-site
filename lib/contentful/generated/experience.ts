@@ -3,7 +3,7 @@ import { Entry, type IEntry, type ILink, isEntry } from "../base";
 import { Company, type ICompany } from "./company";
 
 export interface IExperienceFields {
-  title?: string;
+  title: string;
   company?: ILink<"Entry"> | ICompany;
   startDate?: string;
   endDate?: string;
@@ -28,7 +28,7 @@ export class Experience
   extends Entry<IExperienceFields>
   implements IExperience
 {
-  get title(): string | undefined {
+  get title(): string {
     return this.fields.title;
   }
 

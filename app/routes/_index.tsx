@@ -1,6 +1,7 @@
-import type { Route } from "./+types/_index";
-import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { createClient } from "contentful";
+
+import type { Route } from "./+types/_index";
 import type { ContentBlock } from "lib/contentful/generated";
 
 const pageData = {
@@ -19,7 +20,7 @@ const pageData = {
     "Welcome to the personal website of Mike Robinson – engineering manager, software developer, and technical leader.",
 };
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Mike Robinson – Home Page" },
     {
@@ -46,6 +47,6 @@ export async function loader({ context }: Route.LoaderArgs) {
   };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
+export default function Home() {
   return <h1>Welcome to my website</h1>;
 }

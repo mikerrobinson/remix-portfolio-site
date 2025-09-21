@@ -7,31 +7,39 @@ export function Experience({
   descriptionHtml,
 }: {
   title: string;
-  company: { name: string; logo: { url: string; altText?: string } };
-  startDate: string;
-  endDate: string;
+  company?: { name: string; logo?: { url: string; altText?: string } };
+  startDate?: string;
+  endDate?: string;
   location?: { lon: number; lat: number };
   descriptionHtml: string;
 }) {
   return (
     <div className="experience">
       <h3>
-        <span className="title">{title}</span>
-        <span> at </span>
-        <span className="company-name">{company.name}</span>
+        {title && company ? (
+          <>
+            <span className="title">{title}</span>
+            <span> at </span>
+            <span className="company-name">{company.name}</span>
+          </>
+        ) : (
+          <span className="title">{title}</span>
+        )}
       </h3>
-      <p className="start-date">{startDate}</p>
-      <p className="end-date">{endDate}</p>
+      {startDate && <p className="start-date">{startDate}</p>}
+      {endDate && <p className="end-date">{endDate}</p>}
       {location && (
         <p className="location">
           Location: {location.lat}, {location.lon}
         </p>
       )}
-      <img
-        className="company-logo"
-        src={company.logo.url}
-        alt={company.logo.altText}
-      ></img>
+      {company?.logo && (
+        <img
+          className="company-logo"
+          src={company.logo.url}
+          alt={company.logo.altText}
+        />
+      )}
       <p
         className="description"
         dangerouslySetInnerHTML={{

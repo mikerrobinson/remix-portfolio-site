@@ -1,7 +1,7 @@
-import type { Route } from "./+types/privacy";
-import { createClient } from "contentful";
-//import type { ContentBlockSkeleton } from "../contentful/types/ContentBlockSkeleton";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { createClient } from "contentful";
+
+import type { Route } from "./+types/privacy";
 import type { ContentBlock } from "../../lib/contentful/generated/content_block";
 
 const pageData = {
@@ -20,7 +20,7 @@ const pageData = {
     "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
 };
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Mike Robinson – Privacy Policy" },
     {

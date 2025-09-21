@@ -1,8 +1,14 @@
-import type { Route } from "./+types/resume";
-import { useLoaderData } from "react-router";
-import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import type { Resume } from "lib/contentful/generated";
+import { createClient } from "contentful";
+import { useLoaderData } from "react-router";
+
+import type { Route } from "./+types/resume";
+import type {
+  Resume,
+  Experience as ExperienceType,
+  Education as EducationType,
+} from "lib/contentful/generated";
+
 import { Education } from "~/components/education";
 import { Experience } from "~/components/experience";
 
@@ -22,7 +28,7 @@ const pageData = {
     "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
 };
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Mike Robinson – Resume" },
     {
@@ -37,7 +43,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 // Loader for GET requests
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context }: Route.LoaderArgs) {
   const client = createClient({
     space: context.cloudflare.env.CONTENTFUL_SPACE_ID,
     accessToken: context.cloudflare.env.CONTENTFUL_ACCESS_TOKEN, // or process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN for drafts
@@ -53,52 +59,54 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const resume = resumes.items[0];
   return {
     raw: resume,
-    name: resume.fields.name,
-    headline: resume.fields.headline,
-    // summary and lists can be nullable according to the generated types; cast safely
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     summaryHtml: documentToHtmlString(resume.fields.summary as any),
-    experience: ((resume.fields.experience ?? []) as any[]).map(
-      (expItem: any) => ({
-        title: expItem.fields.title,
-        company: {
-          name: expItem.fields.company.fields.name,
-          logo: {
-            url: expItem.fields.company.fields.logo?.fields.file?.url,
-            altText: expItem.fields.company.fields.logo?.fields.description,
-          },
-        },
+    experience: ((resume.fields.experience ?? []) as ExperienceType[]).map(
+      (expItem: ExperienceType) => ({
+        title: expItem.title,
+        company: expItem.company
+          ? {
+              name: expItem.company.fields.name,
+              logo:
+                expItem.company.logo &&
+                typeof expItem.company.logo.fields.file.url === "string"
+                  ? {
+                      url: expItem.company.logo.fields.file.url,
+                      altText: expItem.company.logo.fields.description,
+                    }
+                  : undefined,
+            }
+          : undefined,
         startDate: expItem.fields.startDate,
         endDate: expItem.fields.endDate,
         descriptionHtml: documentToHtmlString(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           expItem.fields.description as any
         ),
       })
     ),
-    education: ((resume.fields.education ?? []) as any[]).map(
-      (eduItem: any) => ({
+    education: ((resume.fields.education ?? []) as EducationType[]).map(
+      (eduItem: EducationType) => ({
         school: eduItem.fields.school,
         major: eduItem.fields.major,
         minor: eduItem.fields.minor,
         societies: eduItem.fields.societies,
-        logo: {
-          url: eduItem.fields.logo?.fields.file?.url,
-          altText: eduItem.fields.logo?.fields.description,
-        },
+        logo:
+          eduItem.logo && eduItem.logo.fields.file.url
+            ? {
+                url: eduItem.logo.fields.file.url,
+                altText: eduItem.logo.fields.description,
+              }
+            : undefined,
       })
     ),
   };
 }
 
-// Default component to display the data
 export default function ResumePage() {
-  const { raw, name, headline, summaryHtml, experience, education } =
+  const { raw, summaryHtml, experience, education } =
     useLoaderData<typeof loader>();
 
-  const sections = [
-    { id: "summary", label: "Summary" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
-  ];
   return (
     <div className="relative prose max-w-none">
       {summaryHtml && (
@@ -116,7 +124,7 @@ export default function ResumePage() {
           <h2>Experience</h2>
           {experience?.map((experience) => (
             <Experience
-              key={experience.title + experience.company.name}
+              key={experience.descriptionHtml}
               title={experience.title}
               company={experience.company}
               startDate={experience.startDate}

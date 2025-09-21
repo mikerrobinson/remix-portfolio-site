@@ -1,22 +1,22 @@
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import React, { useState } from "react";
 import {
   isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
-  useLoaderData,
   type LoaderFunctionArgs,
   // ScrollRestoration,
 } from "react-router";
 
-import type { Route } from "./+types/root";
 import appStylesHref from "./app.css?url";
 import { GoogleAnalytics } from "./components/google-analytics";
 import { JsonLdScript } from "./components/json-ld-script";
-import { Menu, X } from "lucide-react";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Nav from "./components/nav";
+
+import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },

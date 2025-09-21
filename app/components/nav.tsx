@@ -1,5 +1,4 @@
 import React from "react";
-import type { Route } from "../+types/root";
 import { Link } from "react-router";
 
 export type NavProps = {

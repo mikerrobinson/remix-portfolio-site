@@ -1,0 +1,10 @@
+{
+  "tag-pair": true,
+  "attr-lowercase": true,
+  "attr-no-unnecessary-whitespace": true,
+  "attr-value-double-quotes": true,
+  "doctype-first": true,
+  "tag-self-close": true,
+  "alt-require": true,
+  "spec-char-escape": true
+}
