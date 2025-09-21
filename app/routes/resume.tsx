@@ -69,7 +69,7 @@ export default function ResumePage() {
       {summaryHtml && (
         <section id="summary">
           <h2>Summary</h2>
-          <p
+          <div
             dangerouslySetInnerHTML={{
               __html: summaryHtml,
             }}

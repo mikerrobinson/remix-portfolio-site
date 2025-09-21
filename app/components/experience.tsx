@@ -40,7 +40,7 @@ export function Experience({
           alt={company.logo.altText}
         />
       )}
-      <p
+      <div
         className="description"
         dangerouslySetInnerHTML={{
           __html: descriptionHtml,
