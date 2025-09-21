@@ -24,11 +24,7 @@ export function Nav({
       {/* Profile block */}
       <div className="flex flex-col items-center text-center space-y-3">
         <img
-          src={
-            compact
-              ? "/images/headshot.jpg"
-              : "https://images.ctfassets.net/de578b4i2gcz/5Kar98VQsQIRyeXcOB9XdK/f0545d010e8546a095bd3b310c94c9f3/photo.JPG"
-          }
+          src="https://images.ctfassets.net/de578b4i2gcz/5Kar98VQsQIRyeXcOB9XdK/f0545d010e8546a095bd3b310c94c9f3/photo.JPG"
           alt="Mike Robinson headshot"
           className="w-20 h-20 rounded-full border border-gray-300 object-cover"
         />

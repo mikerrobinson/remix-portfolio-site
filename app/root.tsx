@@ -14,16 +14,11 @@ import appStylesHref from "./app.css?url";
 import { GoogleAnalytics } from "./components/google-analytics";
 import { JsonLdScript } from "./components/json-ld-script";
 import { Menu, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Nav from "./components/nav";
 
 export const links: Route.LinksFunction = () => [
-  // { rel: "preconnect", href: "https://images.ctfassets.net" },
-  // {
-  //   rel: "stylesheet",
-  //   href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  // },
   { rel: "stylesheet", href: appStylesHref },
 ];
 
@@ -110,20 +105,18 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
-      {/* Desktop sidebar (hidden on mobile) */}
       <aside className="hidden md:flex flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-40 sticky top-0 h-screen overflow-y-auto">
         <Nav />
       </aside>
 
-      {/* Mobile top nav */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-3">
           <img
-            src="/images/avatar.png"
-            alt="Michael Robinson avatar"
+            src="https://images.ctfassets.net/de578b4i2gcz/5Kar98VQsQIRyeXcOB9XdK/f0545d010e8546a095bd3b310c94c9f3/photo.JPG"
+            alt="Mike Robinson avatar"
             className="w-8 h-8 rounded-full border border-gray-300"
           />
-          <span className="font-semibold">Michael Robinson</span>
+          <span className="font-semibold">Mike Robinson</span>
         </div>
         <button
           className="p-2 rounded hover:bg-gray-100"
@@ -137,7 +130,6 @@ export default function App() {
         </button>
       </header>
 
-      {/* Mobile nav drawer reuses Nav component but compact and animated */}
       <AnimatePresence>
         {mobileNavOpen && (
           <motion.div
@@ -153,7 +145,6 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Main content */}
       <main className="flex-grow px-4 md:px-8 py-8 md:ml-0 md:mt-0 mt-14 max-w-4xl mx-auto">
         <Outlet />
       </main>

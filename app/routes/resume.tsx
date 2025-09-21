@@ -100,57 +100,51 @@ export default function ResumePage() {
     { id: "education", label: "Education" },
   ];
   return (
-    <div className="relative">
-      <div className="prose max-w-none">
-        <h1>
-          {name && <div className="name text-2xl">{name}</div>}
-          {headline && <div className="headline">{headline}</div>}
-        </h1>
-        {summaryHtml && (
-          <section id="summary">
-            <h2>Summary</h2>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: summaryHtml,
-              }}
+    <div className="relative prose max-w-none">
+      {summaryHtml && (
+        <section id="summary">
+          <h2>Summary</h2>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: summaryHtml,
+            }}
+          />
+        </section>
+      )}
+      {experience && (
+        <section id="experience">
+          <h2>Experience</h2>
+          {experience?.map((experience) => (
+            <Experience
+              key={experience.title + experience.company.name}
+              title={experience.title}
+              company={experience.company}
+              startDate={experience.startDate}
+              endDate={experience.endDate}
+              descriptionHtml={experience.descriptionHtml}
             />
-          </section>
-        )}
-        {experience && (
-          <section id="experience">
-            <h2>Experience</h2>
-            {experience?.map((experience) => (
-              <Experience
-                key={experience.title + experience.company.name}
-                title={experience.title}
-                company={experience.company}
-                startDate={experience.startDate}
-                endDate={experience.endDate}
-                descriptionHtml={experience.descriptionHtml}
-              />
-            ))}
-          </section>
-        )}
-        {education && (
-          <section id="education">
-            <h2>Education</h2>
-            {education?.map((education) => (
-              <Education
-                key={education.school}
-                school={education.school}
-                major={education.major}
-                minor={education.minor}
-                other={education.societies}
-                logo={education.logo}
-              />
-            ))}
-          </section>
-        )}
-        <details>
-          <summary>Raw Loader Data</summary>
-          <pre>{JSON.stringify(raw, null, 2)}</pre>
-        </details>
-      </div>
+          ))}
+        </section>
+      )}
+      {education && (
+        <section id="education">
+          <h2>Education</h2>
+          {education?.map((education) => (
+            <Education
+              key={education.school}
+              school={education.school}
+              major={education.major}
+              minor={education.minor}
+              other={education.societies}
+              logo={education.logo}
+            />
+          ))}
+        </section>
+      )}
+      <details>
+        <summary>Raw Loader Data</summary>
+        <pre>{JSON.stringify(raw, null, 2)}</pre>
+      </details>
     </div>
   );
 }

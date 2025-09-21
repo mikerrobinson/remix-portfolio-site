@@ -31,7 +31,7 @@ export const meta: MetaFunction = () => {
 // Default component to display the data
 export default function ProjectsPage() {
   return (
-    <div className="relative">
+    <div className="relative prose max-w-none">
       <h1>Projects</h1>
       <p>Coming soon</p>
     </div>
