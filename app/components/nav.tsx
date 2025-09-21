@@ -1,5 +1,6 @@
-import React from "react";
 import { Link } from "react-router";
+
+import { MY_HEADSHOT_URL, MY_NAME } from "~/constants";
 
 export type NavProps = {
   compact?: boolean;
@@ -23,11 +24,11 @@ export function Nav({
       {/* Profile block */}
       <div className="flex flex-col items-center text-center space-y-3">
         <img
-          src="https://images.ctfassets.net/de578b4i2gcz/5Kar98VQsQIRyeXcOB9XdK/f0545d010e8546a095bd3b310c94c9f3/photo.JPG"
-          alt="Mike Robinson headshot"
+          src={`${MY_HEADSHOT_URL}?w=300&q=80&fm=webp`}
+          alt={`${MY_NAME} headshot`}
           className="w-20 h-20 rounded-full border border-gray-300 object-cover"
         />
-        <h1 className="font-semibold text-lg">Mike Robinson</h1>
+        <h1 className="font-semibold text-lg">{MY_NAME}</h1>
         <p className="text-sm text-gray-600">Engineering Leader · Developer</p>
       </div>
 

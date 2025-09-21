@@ -85,10 +85,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://images.ctfassets.net"></link>
+        <Links />
         <JsonLdScript data={personData} />
         <JsonLdScript data={websiteData} />
         <Meta />
-        <Links />
         <GoogleAnalytics />
       </head>
       <body>
@@ -112,7 +112,7 @@ export default function App() {
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-3">
           <img
-            src={MY_HEADSHOT_URL}
+            src={`${MY_HEADSHOT_URL}?w=300&q=80&fm=webp`}
             alt={`${MY_NAME} avatar`}
             className="w-8 h-8 rounded-full border border-gray-300"
           />
