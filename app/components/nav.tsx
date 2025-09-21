@@ -24,7 +24,7 @@ export function Nav({
       {/* Profile block */}
       <div className="flex flex-col items-center text-center space-y-3">
         <img
-          src={`${MY_HEADSHOT_URL}?w=300&q=80&fm=webp`}
+          src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
           alt={`${MY_NAME} headshot`}
           className="w-20 h-20 rounded-full border border-gray-300 object-cover"
         />
