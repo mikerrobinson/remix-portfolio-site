@@ -15,7 +15,12 @@ export function Education({
     <div className="education">
       <h3 className="school">{school}</h3>
       {logo?.url && (
-        <img className="logo" src={logo?.url} alt={logo?.altText} />
+        <img
+          className="logo"
+          src={logo?.url}
+          alt={logo?.altText}
+          loading="lazy"
+        />
       )}
       <dl>
         {major && (

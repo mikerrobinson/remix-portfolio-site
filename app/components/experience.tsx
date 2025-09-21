@@ -38,6 +38,7 @@ export function Experience({
           className="company-logo"
           src={company.logo.url}
           alt={company.logo.altText}
+          loading="lazy"
         />
       )}
       <div
