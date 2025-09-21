@@ -1,105 +1,62 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { createClient } from "contentful";
+import { Resume } from "lib/contentful/generated";
 import { useLoaderData } from "react-router";
 
 import type { Route } from "./+types/resume";
-import type {
-  Resume,
-  Experience as ExperienceType,
-  Education as EducationType,
-} from "lib/contentful/generated";
 
 import { Education } from "~/components/education";
 import { Experience } from "~/components/experience";
-
-const pageData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://mikerobinson.dev#resume",
-  url: "https://mikerobinson.dev",
-  name: "Mike Robinson – Resume",
-  isPartOf: {
-    "@id": "https://mikerobinson.dev#website",
-  },
-  about: {
-    "@id": "https://mikerobinson.dev#person",
-  },
-  description:
-    "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
-};
+import buildPageMeta from "~/utils/buildPageMeta";
 
 export function meta() {
-  return [
-    { title: "Mike Robinson – Resume" },
-    {
-      name: "description",
-      content:
-        "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
-    },
-    {
-      "script:ld+json": pageData,
-    },
-  ];
+  return buildPageMeta(
+    "Resume",
+    "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader."
+  );
 }
 
 // Loader for GET requests
 export async function loader({ context }: Route.LoaderArgs) {
   const client = createClient({
     space: context.cloudflare.env.CONTENTFUL_SPACE_ID,
-    accessToken: context.cloudflare.env.CONTENTFUL_ACCESS_TOKEN, // or process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN for drafts
+    accessToken: context.cloudflare.env.CONTENTFUL_ACCESS_TOKEN,
   });
 
-  const resumes = await client.getEntries<Resume>({
-    "sys.id": "5f1Vlwi238R0394kN92vya",
-    include: 10, // Specify the depth of linked entries to resolve
+  const response = await client.getEntry<Resume>("5f1Vlwi238R0394kN92vya", {
+    include: 10,
   });
-  if (resumes.items.length !== 1) {
-    throw new Response("Resume not found", { status: 404 });
-  }
-  const resume = resumes.items[0];
+  const resume = new Resume({
+    ...response,
+    contentTypeId: response.sys.contentType?.sys.id ?? "resume",
+  });
+
   return {
     raw: resume,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    summaryHtml: documentToHtmlString(resume.fields.summary as any),
-    experience: ((resume.fields.experience ?? []) as ExperienceType[]).map(
-      (expItem: ExperienceType) => ({
-        title: expItem.title,
-        company: expItem.company
-          ? {
-              name: expItem.company.fields.name,
-              logo:
-                expItem.company.logo &&
-                typeof expItem.company.logo.fields.file.url === "string"
-                  ? {
-                      url: expItem.company.logo.fields.file.url,
-                      altText: expItem.company.logo.fields.description,
-                    }
-                  : undefined,
-            }
-          : undefined,
-        startDate: expItem.fields.startDate,
-        endDate: expItem.fields.endDate,
-        descriptionHtml: documentToHtmlString(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          expItem.fields.description as any
-        ),
-      })
-    ),
-    education: ((resume.fields.education ?? []) as EducationType[]).map(
-      (eduItem: EducationType) => ({
-        school: eduItem.fields.school,
-        major: eduItem.fields.major,
-        minor: eduItem.fields.minor,
-        societies: eduItem.fields.societies,
-        logo:
-          eduItem.logo && eduItem.logo.fields.file.url
-            ? {
-                url: eduItem.logo.fields.file.url,
-                altText: eduItem.logo.fields.description,
-              }
-            : undefined,
-      })
-    ),
+    summaryHtml: documentToHtmlString(resume.summary),
+    experience: resume.experience.map((expItem) => ({
+      title: expItem.title,
+      company: expItem.company && {
+        name: expItem.company.name,
+        logo: expItem.company.logo && {
+          url: expItem.company.logo.fields.file.url,
+          altText: expItem.company.logo.fields.description,
+        },
+      },
+      startDate: expItem.startDate,
+      endDate: expItem.endDate,
+      descriptionHtml: documentToHtmlString(expItem.description),
+    })),
+    education: resume.education.map((eduItem) => ({
+      school: eduItem.school,
+      major: eduItem.major,
+      minor: eduItem.minor,
+      societies: eduItem.societies,
+      logo: eduItem.logo && {
+        url: eduItem.logo.fields.file.url,
+        altText: eduItem.logo.fields.description,
+      },
+    })),
   };
 }
 
@@ -124,7 +81,7 @@ export default function ResumePage() {
           <h2>Experience</h2>
           {experience?.map((experience) => (
             <Experience
-              key={experience.descriptionHtml}
+              key={experience.title + experience.company?.name}
               title={experience.title}
               company={experience.company}
               startDate={experience.startDate}

@@ -7,8 +7,8 @@ export interface IResumeFields {
   name: string;
   headline: string;
   summary: any;
-  experience: Array<ILink<"Entry"> | IExperience>;
-  education: Array<ILink<"Entry"> | IEducation>;
+  experience: Array<IExperience>; // Array<ILink<"Entry"> | IExperience>;
+  education: Array<IEducation>;
 }
 
 /** Resume */
@@ -37,16 +37,12 @@ export class Resume extends Entry<IResumeFields> implements IResume {
     return this.fields.summary;
   }
 
-  get experience(): Array<Experience | null> {
-    return this.fields.experience.map((item) =>
-      isEntry(item) ? wrap<"experience">(item) : null
-    );
+  get experience(): Array<Experience> {
+    return this.fields.experience.map((item) => wrap<"experience">(item));
   }
 
-  get education(): Array<Education | null> {
-    return this.fields.education.map((item) =>
-      isEntry(item) ? wrap<"education">(item) : null
-    );
+  get education(): Array<Education> {
+    return this.fields.education.map((item) => wrap<"education">(item));
   }
 
   constructor(entry: IResume);

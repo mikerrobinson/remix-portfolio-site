@@ -15,6 +15,17 @@ import appStylesHref from "./app.css?url";
 import { GoogleAnalytics } from "./components/google-analytics";
 import { JsonLdScript } from "./components/json-ld-script";
 import Nav from "./components/nav";
+import {
+  MY_EMAIL,
+  GITHUB_URL,
+  MY_HEADSHOT_URL,
+  LINKEDIN_URL,
+  MY_NAME,
+  MY_PHONE,
+  WEBSITE_URL,
+  WEBSITE_ID,
+  PERSON_ID,
+} from "./constants";
 
 import type { Route } from "./+types/root";
 
@@ -25,20 +36,13 @@ export const links: Route.LinksFunction = () => [
 const personData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": "https://mikerrobinson.dev#person",
-  name: "Mike Robinson",
+  "@id": PERSON_ID,
+  name: MY_NAME,
   alternateName: "Michael R. Robinson",
-  url: "https://mikerobinson.dev",
-  email: "mailto:MikeRRobinson@hotmail.com",
-  telephone: "+1-413-219-3527",
-  image:
-    "https://images.ctfassets.net/de578b4i2gcz/5U8wnijMIYHdEPu6wssa1C/026d07fcdaec15215790435b5324b162/photo.JPG",
-  // jobTitle: "Senior Engineering Manager",
-  // worksFor: {
-  //   "@type": "Organization",
-  //   name: "Shopify",
-  //   url: "https://www.shopify.com",
-  // },
+  url: WEBSITE_URL,
+  email: `mailto:${MY_EMAIL}`,
+  telephone: `+1-${MY_PHONE}`,
+  image: MY_HEADSHOT_URL,
   alumniOf: [
     {
       "@type": "CollegeOrUniversity",
@@ -51,22 +55,18 @@ const personData = {
       sameAs: "https://wpcarey.asu.edu/",
     },
   ],
-  sameAs: [
-    "https://www.linkedin.com/in/mike-robinson-software/",
-    "https://github.com/mikerrobinson",
-  ],
+  sameAs: [LINKEDIN_URL, GITHUB_URL],
 };
 
 const websiteData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "https://mikerobinson.dev#website",
-  url: "https://mikerobinson.dev",
-  name: "Mike Robinson – Software Developer",
-  description:
-    "Personal website and resume of Mike Robinson, technical leader and software developer.",
+  "@id": WEBSITE_ID,
+  url: WEBSITE_URL,
+  name: MY_NAME,
+  description: `Personal website and resume of ${MY_NAME}, technical leader and software developer.`,
   publisher: {
-    "@id": "https://mikerobinson.dev#person",
+    "@id": PERSON_ID,
   },
 };
 
@@ -112,11 +112,11 @@ export default function App() {
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-3">
           <img
-            src="https://images.ctfassets.net/de578b4i2gcz/5Kar98VQsQIRyeXcOB9XdK/f0545d010e8546a095bd3b310c94c9f3/photo.JPG"
-            alt="Mike Robinson avatar"
+            src={MY_HEADSHOT_URL}
+            alt={`${MY_NAME} avatar`}
             className="w-8 h-8 rounded-full border border-gray-300"
           />
-          <span className="font-semibold">Mike Robinson</span>
+          <span className="font-semibold">{MY_NAME}</span>
         </div>
         <button
           className="p-2 rounded hover:bg-gray-100"

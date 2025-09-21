@@ -63,7 +63,7 @@ interface IAssetFields {
   title?: string;
   description?: string;
   file: {
-    url?: string;
+    url: string;
     details?: {
       size?: number;
     };

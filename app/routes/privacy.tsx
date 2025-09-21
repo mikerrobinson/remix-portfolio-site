@@ -4,34 +4,13 @@ import { createClient } from "contentful";
 import type { Route } from "./+types/privacy";
 import type { ContentBlock } from "../../lib/contentful/generated/content_block";
 
-const pageData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://mikerobinson.dev#privacy-policy",
-  url: "https://mikerobinson.dev",
-  name: "Mike Robinson – Privacy Policy",
-  isPartOf: {
-    "@id": "https://mikerobinson.dev#website",
-  },
-  about: {
-    "@id": "https://mikerobinson.dev#person",
-  },
-  description:
-    "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader.",
-};
+import buildPageMeta from "~/utils/buildPageMeta";
 
 export function meta() {
-  return [
-    { title: "Mike Robinson – Privacy Policy" },
-    {
-      name: "description",
-      content:
-        "mikerobinson.dev respects your privacy. View this site's privacy policy to understand how, why and what data is collected.",
-    },
-    {
-      "script:ld+json": pageData,
-    },
-  ];
+  return buildPageMeta(
+    "Privacy Policy",
+    "mikerobinson.dev respects your privacy. View this site's privacy policy to understand how, why and what data is collected."
+  );
 }
 
 export async function loader({ context }: Route.LoaderArgs) {

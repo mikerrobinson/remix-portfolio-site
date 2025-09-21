@@ -4,7 +4,7 @@ import { Company, type ICompany } from "./company";
 
 export interface IExperienceFields {
   title: string;
-  company?: ILink<"Entry"> | ICompany;
+  company?: ICompany;
   startDate?: string;
   endDate?: string;
   location?: { lon: number; lat: number };
@@ -32,12 +32,10 @@ export class Experience
     return this.fields.title;
   }
 
-  get company(): Company | null | undefined {
+  get company(): Company | undefined {
     return !this.fields.company
       ? undefined
-      : isEntry(this.fields.company)
-        ? wrap<"company">(this.fields.company)
-        : null;
+      : wrap<"company">(this.fields.company);
   }
 
   get startDate(): string | undefined {

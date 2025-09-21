@@ -9,7 +9,7 @@ import {
 
 export interface ICompanyFields {
   name: string;
-  logo?: ILink<"Asset"> | IAsset;
+  logo?: IAsset; // ILink<"Asset"> | IAsset;
   website?: string;
   location?: string;
 }
@@ -32,12 +32,8 @@ export class Company extends Entry<ICompanyFields> implements ICompany {
     return this.fields.name;
   }
 
-  get logo(): Asset | null | undefined {
-    return !this.fields.logo
-      ? undefined
-      : isAsset(this.fields.logo)
-        ? new Asset(this.fields.logo)
-        : null;
+  get logo(): Asset | undefined {
+    return !this.fields.logo ? undefined : new Asset(this.fields.logo);
   }
 
   get website(): string | undefined {

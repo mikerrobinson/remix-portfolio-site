@@ -9,7 +9,7 @@ import {
 
 export interface IEducationFields {
   school: string;
-  logo?: ILink<"Asset"> | IAsset;
+  logo?: IAsset;
   major?: string;
   minor?: string;
   societies?: string;
@@ -33,12 +33,8 @@ export class Education extends Entry<IEducationFields> implements IEducation {
     return this.fields.school;
   }
 
-  get logo(): Asset | null | undefined {
-    return !this.fields.logo
-      ? undefined
-      : isAsset(this.fields.logo)
-        ? new Asset(this.fields.logo)
-        : null;
+  get logo(): Asset | undefined {
+    return !this.fields.logo ? undefined : new Asset(this.fields.logo);
   }
 
   get major(): string | undefined {

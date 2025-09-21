@@ -1,31 +1,12 @@
 import type { MetaFunction } from "react-router";
 
-const pageData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://mikerobinson.dev#projects]",
-  url: "https://mikerobinson.dev",
-  name: "Mike Robinson – Project Portfolio",
-  isPartOf: {
-    "@id": "https://mikerobinson.dev#website",
-  },
-  about: {
-    "@id": "https://mikerobinson.dev#person",
-  },
-  description: "A portfolio of projects by Mike Robinson",
-};
+import buildPageMeta from "~/utils/buildPageMeta";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "Mike Robinson – Project Portfolio" },
-    {
-      name: "description",
-      content: "A portfolio of projects by Mike Robinson",
-    },
-    {
-      "script:ld+json": pageData,
-    },
-  ];
+  return buildPageMeta(
+    "Project Portfolio",
+    "A portfolio of projects I've undertaken over the years."
+  );
 };
 
 // Default component to display the data
