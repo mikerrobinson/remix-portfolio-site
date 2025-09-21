@@ -1,5 +1,4 @@
 import type { Route } from "./+types/_index";
-import { Welcome } from "../welcome/welcome";
 import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { ContentBlock } from "lib/contentful/generated";
@@ -48,11 +47,5 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return (
-    <Welcome
-      message={loaderData.message}
-      title={loaderData.heading}
-      description={loaderData.body}
-    />
-  );
+  return <h1>Welcome to my website</h1>;
 }

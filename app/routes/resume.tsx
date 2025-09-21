@@ -55,30 +55,37 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     raw: resume,
     name: resume.fields.name,
     headline: resume.fields.headline,
-    summaryHtml: documentToHtmlString(resume.fields.summary),
-    experience: (resume.fields.experience || []).map((experience) => ({
-      title: experience.fields.title,
-      company: {
-        name: experience.fields.company.fields.name,
-        logo: {
-          url: experience.fields.company.fields.logo?.fields.file?.url,
-          altText: experience.fields.company.fields.logo?.fields.description,
+    // summary and lists can be nullable according to the generated types; cast safely
+    summaryHtml: documentToHtmlString(resume.fields.summary as any),
+    experience: ((resume.fields.experience ?? []) as any[]).map(
+      (expItem: any) => ({
+        title: expItem.fields.title,
+        company: {
+          name: expItem.fields.company.fields.name,
+          logo: {
+            url: expItem.fields.company.fields.logo?.fields.file?.url,
+            altText: expItem.fields.company.fields.logo?.fields.description,
+          },
         },
-      },
-      startDate: experience.fields.startDate,
-      endDate: experience.fields.endDate,
-      descriptionHtml: documentToHtmlString(experience.fields.description),
-    })),
-    education: (resume.fields.education || []).map((education) => ({
-      school: education.fields.school,
-      major: education.fields.major,
-      minor: education.fields.minor,
-      societies: education.fields.societies,
-      logo: {
-        url: education.fields.logo?.fields.file?.url,
-        altText: education.fields.logo?.fields.description,
-      },
-    })),
+        startDate: expItem.fields.startDate,
+        endDate: expItem.fields.endDate,
+        descriptionHtml: documentToHtmlString(
+          expItem.fields.description as any
+        ),
+      })
+    ),
+    education: ((resume.fields.education ?? []) as any[]).map(
+      (eduItem: any) => ({
+        school: eduItem.fields.school,
+        major: eduItem.fields.major,
+        minor: eduItem.fields.minor,
+        societies: eduItem.fields.societies,
+        logo: {
+          url: eduItem.fields.logo?.fields.file?.url,
+          altText: eduItem.fields.logo?.fields.description,
+        },
+      })
+    ),
   };
 }
 
@@ -86,56 +93,64 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 export default function ResumePage() {
   const { raw, name, headline, summaryHtml, experience, education } =
     useLoaderData<typeof loader>();
+
+  const sections = [
+    { id: "summary", label: "Summary" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+  ];
   return (
-    <>
-      <h1>
-        {name && <div className="name text-2xl">{name}</div>}
-        {headline && <div className="headline">{headline}</div>}
-      </h1>
-      {summaryHtml && (
-        <section id="summary">
-          <h2>Summary</h2>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: summaryHtml,
-            }}
-          />
-        </section>
-      )}
-      {experience && (
-        <section id="experience">
-          <h2>Experience</h2>
-          {experience?.map((experience) => (
-            <Experience
-              key={experience.title + experience.company.name}
-              title={experience.title}
-              company={experience.company}
-              startDate={experience.startDate}
-              endDate={experience.endDate}
-              descriptionHtml={experience.descriptionHtml}
+    <div className="relative">
+      <div className="prose max-w-none">
+        <h1>
+          {name && <div className="name text-2xl">{name}</div>}
+          {headline && <div className="headline">{headline}</div>}
+        </h1>
+        {summaryHtml && (
+          <section id="summary">
+            <h2>Summary</h2>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: summaryHtml,
+              }}
             />
-          ))}
-        </section>
-      )}
-      {education && (
-        <section id="education">
-          <h2>Education</h2>
-          {education?.map((education) => (
-            <Education
-              key={education.school}
-              school={education.school}
-              major={education.major}
-              minor={education.minor}
-              other={education.societies}
-              logo={education.logo}
-            />
-          ))}
-        </section>
-      )}
-      <details>
-        <summary>Raw Loader Data</summary>
-        <pre>{JSON.stringify(raw, null, 2)}</pre>
-      </details>
-    </>
+          </section>
+        )}
+        {experience && (
+          <section id="experience">
+            <h2>Experience</h2>
+            {experience?.map((experience) => (
+              <Experience
+                key={experience.title + experience.company.name}
+                title={experience.title}
+                company={experience.company}
+                startDate={experience.startDate}
+                endDate={experience.endDate}
+                descriptionHtml={experience.descriptionHtml}
+              />
+            ))}
+          </section>
+        )}
+        {education && (
+          <section id="education">
+            <h2>Education</h2>
+            {education?.map((education) => (
+              <Education
+                key={education.school}
+                school={education.school}
+                major={education.major}
+                minor={education.minor}
+                other={education.societies}
+                logo={education.logo}
+              />
+            ))}
+          </section>
+        )}
+        <details>
+          <summary>Raw Loader Data</summary>
+          <pre>{JSON.stringify(raw, null, 2)}</pre>
+        </details>
+      </div>
+    </div>
   );
 }
