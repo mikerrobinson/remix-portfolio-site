@@ -1,15 +1,8 @@
 import { Menu, X } from "lucide-react";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
 
 import { MY_HEADSHOT_URL, MY_NAME } from "~/constants";
-
-// desktop:
-// hidden md:flex flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-40 sticky top-0 h-screen overflow-y-auto
-//  w-56 flex flex-col p-6 space-y-6
-
-// mobile:
-// md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -54,18 +47,7 @@ export function Nav() {
   };
 
   return (
-    // <header className="w-56 flex flex-col p-6 space-y-6">
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg flex flex-shrink-0 md:w-56 flex-col md:px-6 md:py-6 md:space-y-6 md:border-r md:right-unset md:h-screen border-gray-200 justify-between md:justify-start px-4 py-3">
-      {/* <div className="flex flex-col items-center text-center space-y-3">
-        <img
-          src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
-          alt={`${MY_NAME} headshot`}
-          className="w-20 h-20 rounded-full border border-gray-300 object-cover"
-        />
-        <h1 className="font-semibold text-lg">{MY_NAME}</h1>
-        <p className="text-sm text-gray-600">Engineering Leader · Developer</p>
-      </div> */}
-
       <div className="flex md:flex-col items-center md:text-center space-x-3 md:space-y-3 md:space-x-0">
         <img
           src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
