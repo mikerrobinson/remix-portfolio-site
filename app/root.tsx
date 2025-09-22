@@ -177,7 +177,7 @@ export default function App() {
         </nav>
       </header> */}
 
-      <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-6 max-w-4xl mx-auto">
+      <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-16 md:mt-6 max-w-4xl mx-auto">
         <Outlet />
       </main>
     </div>

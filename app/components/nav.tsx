@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
 
 import { MY_HEADSHOT_URL, MY_NAME } from "~/constants";
@@ -11,9 +12,49 @@ import { MY_HEADSHOT_URL, MY_NAME } from "~/constants";
 // md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3
 
 export function Nav() {
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef(null);
+  const menuRef = useRef(null);
+
+  // Close on Escape key
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    }
+    if (open) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
+  // Close when clicking outside menu
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        !buttonRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    }
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const handleLinkClick = () => {
+    setOpen(false);
+    buttonRef.current?.focus();
+  };
+
   return (
     // <header className="w-56 flex flex-col p-6 space-y-6">
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg flex flex-shrink-0 md:w-56 flex-col md:px-6 md:py-6 md:space-y-6 md:border-r md:right-unset md:h-screen border-gray-200 md:items-center justify-between md:justify-start px-4 py-3">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg flex flex-shrink-0 md:w-56 flex-col md:px-6 md:py-6 md:space-y-6 md:border-r md:right-unset md:h-screen border-gray-200 justify-between md:justify-start px-4 py-3">
       {/* <div className="flex flex-col items-center text-center space-y-3">
         <img
           src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
@@ -38,56 +79,59 @@ export function Nav() {
         </div>
       </div>
 
-      {/* <a className="p-2 rounded hover:bg-gray-100" href="#menu">
-        <X className="w-6 h-6" />
-        <Menu className="w-6 h-6" />
-      </a> */}
-
-      <div className="md:hidden absolute right-4 rounded hover:bg-gray-100">
-        <input type="checkbox" id="menu-toggle" />
-        <label htmlFor="menu-toggle">
-          <div className="menu-icon">
-            <span></span>
-          </div>
-        </label>
-      </div>
+      <button
+        ref={buttonRef}
+        className="absolute md:hidden p-2 top-4 right-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-controls="mobile-menu"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+      >
+        {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        <span className="sr-only">Toggle navigation menu</span>
+      </button>
 
       <nav
         aria-label="Global navigation"
-        className="h-auto max-h-0 overflow-hidden opacity-0 md:max-h-500 md:opacity-100 transition-[max-height] transition-opacity duration-3000 ease-in-out"
+        className={`h-auto max-h-0 overflow-hidden opacity-0 md:max-h-500 md:opacity-100 border-t border-gray-200 transition-all duration-300 ease-in-out ${
+          open ? "mt-3 max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
       >
-        <ul className="flex flex-col space-y-4 font-medium py-8">
-          <li>
+        <ul className="flex flex-col font-medium py-8">
+          <li className="py-3">
             <Link
               to="/"
               prefetch="viewport"
+              onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
               Home
             </Link>
           </li>
-          <li>
+          <li className="py-3">
             <Link
               to="/resume"
               prefetch="viewport"
+              onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
               Resume
             </Link>
           </li>
-          <li>
+          <li className="py-3">
             <Link
               to="/projects"
               prefetch="viewport"
+              onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
               Projects
             </Link>
           </li>
-          <li>
+          <li className="py-3">
             <Link
               to="/privacy"
               prefetch="viewport"
+              onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
               Privacy

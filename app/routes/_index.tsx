@@ -8,5 +8,10 @@ export function meta() {
 }
 
 export default function Home() {
-  return <h1>Welcome to my website</h1>;
+  return (
+    <section className="relative prose max-w-none">
+      <h2>Welcome!</h2>
+      <p>This is my personal space on the internet.</p>
+    </section>
+  );
 }
