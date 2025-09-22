@@ -105,11 +105,11 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
-      <aside className="hidden md:flex flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-40 sticky top-0 h-screen overflow-y-auto">
+      {/* <aside className="hidden md:flex flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-40 sticky top-0 h-screen overflow-y-auto">
         <Nav />
-      </aside>
+      </aside> */}
 
-      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
+      {/* <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-3">
           <img
             src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
@@ -122,7 +122,6 @@ export default function App() {
               Engineering Leader · Developer
             </p>
           </div>
-          {/* <span className="font-semibold">{MY_NAME}</span> */}
         </div>
         <button
           className="p-2 rounded hover:bg-gray-100"
@@ -134,9 +133,9 @@ export default function App() {
             <Menu className="w-6 h-6" />
           )}
         </button>
-      </header>
+      </header> */}
 
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {mobileNavOpen && (
           <motion.div
             key="mobile-nav"
@@ -149,9 +148,36 @@ export default function App() {
             <Nav compact onLinkClick={() => setMobileNavOpen(false)} />
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
-      <main className="flex-grow px-4 md:px-8 py-8 md:ml-0 md:mt-0 mt-14 max-w-4xl mx-auto">
+      <Nav />
+      {/* <header>
+        <input type="checkbox" id="menu-toggle" />
+        <label htmlFor="menu-toggle">
+          <div className="menu-icon">
+            <span></span>
+          </div>
+        </label>
+
+        <nav>
+          <ul>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/resume">Resume</a>
+            </li>
+            <li>
+              <a href="/projects">Projects</a>
+            </li>
+            <li>
+              <a href="/privacy">Privacy</a>
+            </li>
+          </ul>
+        </nav>
+      </header> */}
+
+      <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-6 max-w-4xl mx-auto">
         <Outlet />
       </main>
     </div>
