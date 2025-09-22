@@ -13,30 +13,31 @@ import { MY_HEADSHOT_URL, MY_NAME } from "~/constants";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const buttonRef = useRef(null);
-  const menuRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   // Close on Escape key
   useEffect(() => {
-    function handleKeyDown(e) {
+    function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
         setOpen(false);
         buttonRef.current?.focus();
       }
     }
     if (open) {
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener<"keydown">("keydown", handleKeyDown);
     }
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
   // Close when clicking outside menu
   useEffect(() => {
-    function handleClickOutside(e) {
+    function handleClickOutside(e: MouseEvent) {
       if (
         menuRef.current &&
-        !menuRef.current.contains(e.target) &&
-        !buttonRef.current.contains(e.target)
+        !menuRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
       ) {
         setOpen(false);
       }
@@ -91,6 +92,7 @@ export function Nav() {
       </button>
 
       <nav
+        ref={menuRef}
         aria-label="Global navigation"
         className={`h-auto max-h-0 overflow-hidden opacity-0 md:max-h-500 md:opacity-100 border-t border-gray-200 transition-all duration-300 ease-in-out ${
           open ? "mt-3 max-h-96 opacity-100" : "max-h-0 opacity-0"

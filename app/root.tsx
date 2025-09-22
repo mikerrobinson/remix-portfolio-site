@@ -1,6 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -101,82 +99,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
-      {/* <aside className="hidden md:flex flex-shrink-0 border-r border-gray-200 bg-white shadow-sm z-40 sticky top-0 h-screen overflow-y-auto">
-        <Nav />
-      </aside> */}
-
-      {/* <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between px-4 py-3">
-        <div className="flex items-center space-x-3">
-          <img
-            src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
-            alt={`${MY_NAME} avatar`}
-            className="w-16 h-16 rounded-full border border-gray-300"
-          />
-          <div className="flex flex-col">
-            <h1 className="font-semibold text-xl">{MY_NAME}</h1>
-            <p className="text-sm text-gray-600">
-              Engineering Leader · Developer
-            </p>
-          </div>
-        </div>
-        <button
-          className="p-2 rounded hover:bg-gray-100"
-          onClick={() => setMobileNavOpen(!mobileNavOpen)}
-        >
-          {mobileNavOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
-        </button>
-      </header> */}
-
-      {/* <AnimatePresence>
-        {mobileNavOpen && (
-          <motion.div
-            key="mobile-nav"
-            initial={{ x: "-100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "-100%", opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 bottom-0 w-64 bg-white shadow-lg z-40 p-6 flex flex-col space-y-6"
-          >
-            <Nav compact onLinkClick={() => setMobileNavOpen(false)} />
-          </motion.div>
-        )}
-      </AnimatePresence> */}
-
       <Nav />
-      {/* <header>
-        <input type="checkbox" id="menu-toggle" />
-        <label htmlFor="menu-toggle">
-          <div className="menu-icon">
-            <span></span>
-          </div>
-        </label>
-
-        <nav>
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/resume">Resume</a>
-            </li>
-            <li>
-              <a href="/projects">Projects</a>
-            </li>
-            <li>
-              <a href="/privacy">Privacy</a>
-            </li>
-          </ul>
-        </nav>
-      </header> */}
-
       <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-16 md:mt-6 max-w-4xl mx-auto">
         <Outlet />
       </main>
