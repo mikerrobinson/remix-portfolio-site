@@ -114,9 +114,15 @@ export default function App() {
           <img
             src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
             alt={`${MY_NAME} avatar`}
-            className="w-8 h-8 rounded-full border border-gray-300"
+            className="w-16 h-16 rounded-full border border-gray-300"
           />
-          <span className="font-semibold">{MY_NAME}</span>
+          <div className="flex flex-col">
+            <h1 className="font-semibold text-xl">{MY_NAME}</h1>
+            <p className="text-sm text-gray-600">
+              Engineering Leader · Developer
+            </p>
+          </div>
+          {/* <span className="font-semibold">{MY_NAME}</span> */}
         </div>
         <button
           className="p-2 rounded hover:bg-gray-100"
