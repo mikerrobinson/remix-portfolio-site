@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function ProjectsPage() {
   return (
     <div className="relative prose max-w-none">
-      <h1>Projects</h1>
+      <h2>Projects</h2>
       <p>Coming soon</p>
     </div>
   );

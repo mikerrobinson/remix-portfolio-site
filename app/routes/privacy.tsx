@@ -28,7 +28,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 export default function Privacy({ loaderData }: Route.ComponentProps) {
   return (
     <section className="relative prose max-w-none">
-      <h1>{loaderData.heading}</h1>
+      <h2>{loaderData.heading}</h2>
       <div dangerouslySetInnerHTML={{ __html: loaderData.body }} />
     </section>
   );

@@ -16,6 +16,6 @@ body {
   }
 }
 
-.name {
-  @apply font-bold text-9xl;
+section:first-of-type h2 {
+  @apply mt-0;
 }
