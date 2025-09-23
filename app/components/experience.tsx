@@ -1,3 +1,6 @@
+const options = { year: "numeric", month: "short" } as const;
+const formatter = new Intl.DateTimeFormat("en-US", options);
+
 export function Experience({
   title,
   company,
@@ -13,34 +16,39 @@ export function Experience({
   location?: { lon: number; lat: number };
   descriptionHtml: string;
 }) {
+  const formattedStartDate = startDate
+    ? formatter.format(new Date(startDate))
+    : "";
+  const formattedEndDate = endDate ? formatter.format(new Date(endDate)) : "";
   return (
-    <div className="experience">
-      <h3>
-        {title && company ? (
-          <>
-            <span className="title">{title}</span>
-            <span> at </span>
-            <span className="company-name">{company.name}</span>
-          </>
-        ) : (
-          <span className="title">{title}</span>
-        )}
-      </h3>
-      {startDate && <p className="start-date">{startDate}</p>}
-      {endDate && <p className="end-date">{endDate}</p>}
-      {location && (
-        <p className="location">
-          Location: {location.lat}, {location.lon}
-        </p>
-      )}
+    <div className="experience flex flex-col items-start mb-8">
       {company?.logo && (
         <img
-          className="company-logo"
+          className="mt-0 mb-0 company-logo h-16 md:h-12 w-auto mr-4"
           src={company.logo.url}
           alt={company.logo.altText}
           loading="lazy"
         />
       )}
+      <div className="flex flex-col mb-1">
+        <h3 className="mt-0 mb-0">
+          <span className="title">{title}</span>
+          {company && (
+            <span className="company-name hidden">
+              &nbsp; at {company.name}
+            </span>
+          )}
+        </h3>
+        <span className="dates">
+          {formattedStartDate} to {formattedEndDate}
+        </span>
+      </div>
+      {location && (
+        <p className="location">
+          Location: {location.lat}, {location.lon}
+        </p>
+      )}
+
       <div
         className="description"
         dangerouslySetInnerHTML={{

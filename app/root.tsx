@@ -87,12 +87,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <JsonLdScript data={personData} />
         <JsonLdScript data={websiteData} />
         <Meta />
-        <GoogleAnalytics />
       </head>
       <body>
         {children}
         {/* <ScrollRestoration /> */}
         <Scripts />
+        <GoogleAnalytics />
       </body>
     </html>
   );

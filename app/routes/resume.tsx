@@ -61,14 +61,13 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function ResumePage() {
-  const { raw, summaryHtml, experience, education } =
-    useLoaderData<typeof loader>();
+  const { summaryHtml, experience, education } = useLoaderData<typeof loader>();
 
   return (
     <div className="relative prose max-w-none">
       {summaryHtml && (
         <section id="summary">
-          <h2>Summary</h2>
+          <h2 className="border-b border-gray-300">Summary</h2>
           <div
             dangerouslySetInnerHTML={{
               __html: summaryHtml,
@@ -78,7 +77,7 @@ export default function ResumePage() {
       )}
       {experience && (
         <section id="experience">
-          <h2>Experience</h2>
+          <h2 className="border-b border-gray-300">Experience</h2>
           {experience?.map((experience) => (
             <Experience
               key={experience.title + experience.company?.name}
@@ -93,7 +92,7 @@ export default function ResumePage() {
       )}
       {education && (
         <section id="education">
-          <h2>Education</h2>
+          <h2 className="border-b border-gray-300">Education</h2>
           {education?.map((education) => (
             <Education
               key={education.school}
