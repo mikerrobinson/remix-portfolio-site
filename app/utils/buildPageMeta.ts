@@ -20,6 +20,7 @@ export default function buildPageMeta({
     { tagName: "link", rel: "canonical", href: WEBSITE_URL + path },
     index && { name: "robots", content: "index, follow" },
     // open graph
+    { property: "fb:app_id", content: "1590500965606966" },
     { property: "og:type", content: "website" },
     { property: "og:title", content: `${title} | ${MY_NAME}` },
     { property: "og:description", content: description },
