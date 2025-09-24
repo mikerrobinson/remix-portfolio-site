@@ -2,7 +2,18 @@ import { Form, useLoaderData, useActionData } from "react-router";
 
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router";
 
+import buildPageMeta from "~/utils/buildPageMeta";
 import { getEcho, createEcho } from "~/utils/echo.server"; // Import server logic
+
+export function meta() {
+  return buildPageMeta({
+    title: "Echo",
+    description:
+      "A test page that shows the echoed request data from the server.",
+    path: "/echo",
+    index: false,
+  });
+}
 
 // Loader for GET requests
 export async function loader({ request }: LoaderFunctionArgs) {

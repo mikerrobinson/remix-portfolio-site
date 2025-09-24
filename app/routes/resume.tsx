@@ -10,10 +10,12 @@ import { Experience } from "~/components/experience";
 import buildPageMeta from "~/utils/buildPageMeta";
 
 export function meta() {
-  return buildPageMeta(
-    "Resume",
-    "Mike Robinson's resume, detailing my portfolio of work and experience as an engineering manager, software developer, and technical leader."
-  );
+  return buildPageMeta({
+    title: "Resume",
+    description:
+      "View and download Mike Robinson's resume, showcasing 20+ years of experience in building high-performing, scalable teams and web applications using C#/.NET, React, and Rails.",
+    path: "/resume",
+  });
 }
 
 // Loader for GET requests

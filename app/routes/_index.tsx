@@ -1,10 +1,12 @@
 import buildPageMeta from "~/utils/buildPageMeta";
 
 export function meta() {
-  return buildPageMeta(
-    "Home Page",
-    "Welcome to my personal place on the internet."
-  );
+  return buildPageMeta({
+    title: "Home Page",
+    description:
+      "Technical leader, developer, and entrepreneur specializing in building high-performing, scalable teams and web applications. View my portfolio, projects, and get in touch.",
+    path: "/",
+  });
 }
 
 export default function Home() {

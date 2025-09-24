@@ -7,10 +7,12 @@ import type { ContentBlock } from "../../lib/contentful/generated/content_block"
 import buildPageMeta from "~/utils/buildPageMeta";
 
 export function meta() {
-  return buildPageMeta(
-    "Privacy Policy",
-    "mikerobinson.dev respects your privacy. View this site's privacy policy to understand how, why and what data is collected."
-  );
+  return buildPageMeta({
+    title: "Privacy Policy",
+    description:
+      "mikerobinson.dev respects your privacy. View this site's privacy policy to understand how, why, and what data is collected.",
+    path: "/privacy",
+  });
 }
 
 export async function loader({ context }: Route.LoaderArgs) {
