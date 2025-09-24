@@ -1,22 +1,21 @@
-# Welcome to React Router!
+# Personal Portfolio & Resume – Built with Remix + React Router
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This repository hosts my personal portfolio and resume website. While it’s “just” a personal site, it’s intentionally built with a modern, production-ready stack that mirrors what one would find in a more mature corporate website. This project is both a portfolio of my work and a prototype for how to build a performant, scalable site with the latest tools.
 
-## Features
+## Highlights
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 🗂 **Backed by a CMS (Contentful)** for easy and fast content/media management.
+- ⚡️ **Built on Remix** with React Router, leveraging modern server-side rendering and data loading patterns.
+- 🎨 **Styled with Tailwind CSS** for rapid, consistent UI development.
+- ❌ **Static analysis/linting** with ESLint to enforce consistency and maintainability.
+- 🏭 **Automated CI/CD** backed by Github actions, site deploys in ~10 seconds.
+- 🟢 **Perfect Lighthouse score** – 100 across performance, accessibility, best practices, and SEO.
 
 ## Getting Started
 
 ### Installation
 
-Install the dependencies:
+Clone this repository then install the dependencies:
 
 ```bash
 npm install
@@ -69,10 +68,6 @@ You can then promote a version to production after verification or roll it out p
 ```sh
 npx wrangler versions deploy
 ```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
 ---
 
