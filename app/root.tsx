@@ -6,7 +6,8 @@ import {
   Outlet,
   Scripts,
   type LoaderFunctionArgs,
-  // ScrollRestoration,
+  ScrollRestoration,
+  useLoaderData,
 } from "react-router";
 
 import appStylesHref from "./app.css?url";
@@ -71,14 +72,14 @@ const websiteData = {
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   return {
-    mode: url.searchParams.get("mode"),
-    activePage: url.pathname === "/" ? "home" : url.pathname.slice(1),
+    page: url.pathname === "/" ? "home" : url.pathname.slice(1),
   };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { page } = useLoaderData<typeof loader>();
   return (
-    <html lang="en">
+    <html lang="en" className={`${page}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -90,7 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        {/* <ScrollRestoration /> */}
+        <ScrollRestoration />
         <Scripts />
         <GoogleAnalytics />
       </body>

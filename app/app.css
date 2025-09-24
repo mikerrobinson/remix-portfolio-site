@@ -19,3 +19,7 @@ body {
 section:first-of-type h2 {
   @apply mt-0;
 }
+
+.resume #download-resume-button {
+  @apply inline-flex;
+}
