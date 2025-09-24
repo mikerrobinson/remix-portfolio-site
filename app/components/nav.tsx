@@ -80,7 +80,7 @@ export function Nav() {
       <nav
         ref={menuRef}
         aria-label="Global navigation"
-        className={`h-auto max-h-0 overflow-hidden opacity-0 md:max-h-500 md:opacity-100 transition-all duration-300 ease-in-out ${
+        className={`h-auto max-h-0 opacity-0 md:max-h-500 md:opacity-100 transition-all duration-300 ease-in-out ${
           open ? "mt-3 max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
