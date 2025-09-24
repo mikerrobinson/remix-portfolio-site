@@ -32,7 +32,7 @@ export async function loader({ context }: Route.LoaderArgs) {
   });
 
   return {
-    //raw: resume,
+    raw: resume,
     summaryHtml: documentToHtmlString(resume.summary),
     experience: resume.experience.map((expItem) => ({
       title: expItem.title,
@@ -61,7 +61,8 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function ResumePage() {
-  const { summaryHtml, experience, education } = useLoaderData<typeof loader>();
+  const { raw, summaryHtml, experience, education } =
+    useLoaderData<typeof loader>();
 
   return (
     <div className="relative prose max-w-none">
@@ -105,10 +106,10 @@ export default function ResumePage() {
           ))}
         </section>
       )}
-      {/* <details>
+      <details>
         <summary>Raw Loader Data</summary>
         <pre>{JSON.stringify(raw, null, 2)}</pre>
-      </details> */}
+      </details>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   Outlet,
   Scripts,
   type LoaderFunctionArgs,
-  ScrollRestoration,
+  // ScrollRestoration,
   useLoaderData,
 } from "react-router";
 
@@ -77,9 +77,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { page } = useLoaderData<typeof loader>();
   return (
-    <html lang="en" className={`${page}`}>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -91,7 +90,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <ScrollRestoration />
+        {/* <ScrollRestoration /> */}
         <Scripts />
         <GoogleAnalytics />
       </body>
@@ -100,8 +99,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const { page } = useLoaderData<typeof loader>();
   return (
-    <div className="flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
+    <div
+      className={`flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900 ${page}`}
+    >
       <Nav />
       <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-16 md:mt-6 max-w-4xl mx-auto">
         <Outlet />

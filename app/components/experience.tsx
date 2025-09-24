@@ -17,9 +17,11 @@ export function Experience({
   descriptionHtml: string;
 }) {
   const formattedStartDate = startDate
-    ? formatter.format(new Date(startDate))
+    ? formatter.format(Date.parse(`${startDate} 12:00:00 MST`))
     : "";
-  const formattedEndDate = endDate ? formatter.format(new Date(endDate)) : "";
+  const formattedEndDate = endDate
+    ? formatter.format(Date.parse(`${endDate} 12:00:00 MST`))
+    : "";
   return (
     <div className="experience flex flex-col items-start mb-8">
       {company?.logo && (
@@ -48,7 +50,6 @@ export function Experience({
           Location: {location.lat}, {location.lon}
         </p>
       )}
-
       <div
         className="description"
         dangerouslySetInnerHTML={{
