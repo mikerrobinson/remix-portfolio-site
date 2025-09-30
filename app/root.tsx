@@ -100,12 +100,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { page } = useLoaderData<typeof loader>();
+  const isHome = page === "home";
+
   return (
     <div
       className={`flex min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900 ${page}`}
     >
-      <Nav />
-      <main className="flex-grow px-4 md:ml-62 md:px-8 py-8 md:py-0 md:ml-0 mt-16 md:mt-6 max-w-4xl mx-auto">
+      {!isHome && <Nav />}
+      <main className={`flex-grow px-4 md:px-8 py-8 md:py-0 ${!isHome ? 'md:ml-62 md:ml-0 mt-16 md:mt-6' : ''} ${isHome ? 'mx-auto' : 'max-w-4xl mx-auto'}`}>
         <Outlet />
       </main>
     </div>

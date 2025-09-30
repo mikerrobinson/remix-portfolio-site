@@ -1,3 +1,5 @@
+import { Link, type LinkProps } from "react-router";
+
 import cn from "~/utils/cn";
 
 type ButtonProps = {
@@ -5,7 +7,8 @@ type ButtonProps = {
   variant?: "primary" | "secondary";
   icon?: React.ReactNode;
   className?: string;
-} & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+  href: string;
+} & Omit<LinkProps, "to">;
 
 const baseStyles =
   "inline-flex items-center space-x-2 px-4 py-2 rounded-full font-medium text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1";
@@ -21,13 +24,19 @@ export default function Button({
   children,
   variant = "primary",
   icon,
+  href,
   className,
   ...props
 }: ButtonProps) {
   return (
-    <a className={cn(baseStyles, variants[variant], className)} {...props}>
+    <Link
+      to={href}
+      className={cn(baseStyles, variants[variant], className)}
+      prefetch="viewport"
+      {...props}
+    >
       {icon && <span className="w-4 h-4">{icon}</span>}
       <span>{children}</span>
-    </a>
+    </Link>
   );
 }

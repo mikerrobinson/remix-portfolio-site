@@ -57,10 +57,13 @@ export function Nav() {
           src={`${MY_HEADSHOT_URL}?w=160&q=90&fm=webp`}
           alt={`${MY_NAME} avatar`}
           className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-gray-300"
+          style={{ viewTransitionName: "headshot" }}
         />
         <div className="flex flex-col">
-          <h1 className="font-semibold text-xl">{MY_NAME}</h1>
-          <p className="text-sm text-gray-600">
+          <h1 className="font-semibold text-xl" style={{ viewTransitionName: "name" }}>
+            {MY_NAME}
+          </h1>
+          <p className="text-sm text-gray-600" style={{ viewTransitionName: "tagline" }}>
             Engineering Leader · Developer
           </p>
         </div>
@@ -89,6 +92,7 @@ export function Nav() {
             <Link
               to="/"
               prefetch="viewport"
+              viewTransition
               onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
@@ -99,6 +103,7 @@ export function Nav() {
             <Link
               to="/resume"
               prefetch="viewport"
+              viewTransition
               onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
@@ -109,6 +114,7 @@ export function Nav() {
             <Link
               to="/projects"
               prefetch="viewport"
+              viewTransition
               onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
@@ -119,6 +125,7 @@ export function Nav() {
             <Link
               to="/privacy"
               prefetch="viewport"
+              viewTransition
               onClick={handleLinkClick}
               className="hover:text-blue-600 transition-colors"
             >
