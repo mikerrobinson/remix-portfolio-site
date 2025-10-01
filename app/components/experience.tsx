@@ -17,10 +17,10 @@ export function Experience({
   descriptionHtml: string;
 }) {
   const formattedStartDate = startDate
-    ? formatter.format(Date.parse(`${startDate} 12:00:00 MST`))
+    ? formatter.format(Date.parse(`${startDate}T20:00:00Z`))
     : "";
   const formattedEndDate = endDate
-    ? formatter.format(Date.parse(`${endDate} 12:00:00 MST`))
+    ? formatter.format(Date.parse(`${endDate}T12:00:00Z`))
     : "";
   return (
     <div className="experience flex flex-col items-start mb-8">
